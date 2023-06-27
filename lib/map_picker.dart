@@ -30,6 +30,8 @@ class MapPicker extends StatelessWidget {
   /// Google Maps API KEY
   static late String _key;
 
+  bool initialLoaded = false;
+
   /// # It need be called before you use this lib passing the theme and the Google Maps API KEY
   static init(
       {Widget Function(Function(String address) search)? searchBuilder,
@@ -102,7 +104,10 @@ class MapPicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-
+    if(!initialLoaded) {
+      controller.getAddressByLatLng();
+      initialLoaded = true;
+    }
     return Scaffold(
         body: Stack(
       children: [
